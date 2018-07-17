@@ -1,0 +1,14 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+
+logging:
+  level:
+    root: INFO
+    com.viartemev.calories: INFO
+
+bot:
+  token:
+  log-level: BASIC
