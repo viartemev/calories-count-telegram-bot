@@ -7,7 +7,7 @@ import reactor.core.publisher.Flux
 import java.time.Instant
 
 
-interface IngestionRepository : ReactiveMongoRepository<Ingestion, String> {
+interface IngestionRepository : ReactiveMongoRepository<Ingestion, String>, IngestionRepositoryCustom {
 
     @Query(value = "{'time':{ \$gte: ?0, \$lt: ?1}, userId: ?2}")
     fun findByDateBetweenForUser(from: Instant, to: Instant, userId: Long): Flux<Ingestion>
