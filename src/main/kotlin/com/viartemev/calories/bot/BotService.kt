@@ -94,7 +94,7 @@ class BotService(
         val today = LocalDate.now().atStartOfDay().toInstant(ZoneOffset.UTC)
         val tomorrow = today.plus(Duration.ofDays(1))
         return ingestionRepository
-                .findByDateBetweenForUser(today, tomorrow, userId)
+                .findByUserIdAndTimeBetween(userId, today, tomorrow)
                 .reduce(0) { acc: Int, ingestion: Ingestion -> acc + ingestion.calories }
     }
 

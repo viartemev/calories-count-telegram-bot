@@ -12,7 +12,6 @@ import reactor.core.publisher.Flux
 @Repository
 class IngestionRepositoryCustomImpl(val reactiveMongoTemplate: ReactiveMongoTemplate) : IngestionRepositoryCustom {
 
-
     override fun aggregateByUserId(userId: Long): Flux<CaloriesPerDay> {
         val criteria = match(Criteria.where("userId").`is`(userId))
 
@@ -37,6 +36,5 @@ class IngestionRepositoryCustomImpl(val reactiveMongoTemplate: ReactiveMongoTemp
                 .map { CaloriesPerDay(it.year, it.month, it.day, it.total) }
     }
 
+    data class IngestionAggregationResult(val year: Int?, val month: Int?, val day: Int?, val total: Int?)
 }
-
-private data class IngestionAggregationResult(val year: Int?, val month: Int?, val day: Int?, val total: Int?)

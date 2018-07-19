@@ -14,5 +14,6 @@ class UserCaloriesHandler(val ingestionRepository: IngestionRepository) {
             ServerResponse
                     .ok()
                     .contentType(APPLICATION_JSON)
-                    .body(ingestionRepository.aggregateByUserId(request.pathVariable("id").toLong()), CaloriesPerDay::class.java)
+                    .body(ingestionRepository.aggregateByUserId(request.pathVariable("id").toLong()),
+                            CaloriesPerDay::class.java)
 }
