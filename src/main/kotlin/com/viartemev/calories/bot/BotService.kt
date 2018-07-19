@@ -11,7 +11,6 @@ import me.ivmg.telegram.dispatch
 import me.ivmg.telegram.dispatcher.command
 import me.ivmg.telegram.entities.Message
 import me.ivmg.telegram.entities.Update
-import okhttp3.logging.HttpLoggingInterceptor
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
