@@ -1,6 +1,6 @@
 package com.viartemev.calories.handler
 
-import com.viartemev.calories.model.IngestionAggregationResult
+import com.viartemev.calories.model.CaloriesPerDay
 import com.viartemev.calories.repostitory.IngestionRepository
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.BodyInserters.fromPublisher
@@ -19,6 +19,6 @@ class IngestionHandler(val ingestionRepository: IngestionRepository) {
         aggregate
                 .collectList()
                 //FIXME add wrapper
-                .then(ok().body(fromPublisher(aggregate, IngestionAggregationResult::class.java)))
+                .then(ok().body(fromPublisher(aggregate, CaloriesPerDay::class.java)))
     }
 }

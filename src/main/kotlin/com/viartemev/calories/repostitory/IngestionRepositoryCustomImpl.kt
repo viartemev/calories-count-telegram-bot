@@ -1,6 +1,6 @@
 package com.viartemev.calories.repostitory
 
-import com.viartemev.calories.model.IngestionAggregationResult
+import com.viartemev.calories.model.CaloriesPerDay
 import org.springframework.data.domain.Sort
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate
 import org.springframework.data.mongodb.core.aggregation.Aggregation.*
@@ -13,7 +13,7 @@ import reactor.core.publisher.Flux
 class IngestionRepositoryCustomImpl(val reactiveMongoTemplate: ReactiveMongoTemplate) : IngestionRepositoryCustom {
 
 
-    override fun aggregateByUserId(userId: Long): Flux<IngestionAggregationResult> {
+    override fun aggregateByUserId(userId: Long): Flux<CaloriesPerDay> {
         val criteria = match(Criteria.where("userId").`is`(userId))
 
         val groupBy = group("year", "month", "day")
@@ -34,6 +34,9 @@ class IngestionRepositoryCustomImpl(val reactiveMongoTemplate: ReactiveMongoTemp
         val aggregation = newAggregation(criteria, dateProjection, groupBy, sortBy)
         return reactiveMongoTemplate
                 .aggregate(aggregation, "ingestions", IngestionAggregationResult::class.java)
+                .map { CaloriesPerDay(it.year, it.month, it.day, it.total) }
     }
 
 }
+
+private data class IngestionAggregationResult(val year: Int?, val month: Int?, val day: Int?, val total: Int?)

@@ -10,7 +10,7 @@ class Router {
 
     @Bean
     fun route(ingestionHandler: IngestionHandler) = router {
-        GET("/users/{id}/ingestions", ingestionHandler::get)
+        GET("/users/{id}/calories", ingestionHandler::get)
     }
 
 }
