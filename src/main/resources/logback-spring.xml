@@ -1,0 +1,23 @@
+<!-- Use debug=true here if you want to see output from the appender itself -->
+<configuration>
+    <springProperty scope="context" name="LOGZ_TOKEN" source="logz.token"/>
+    <!-- Use shutdownHook so that we can close gracefully and finish the log drain -->
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+    <appender name="LogzioLogbackAppender" class="io.logz.logback.LogzioLogbackAppender">
+        <token>${LOGZ_TOKEN}</token>
+        <logzioUrl>https://listener.logz.io:8071</logzioUrl>
+        <logzioType>myType</logzioType>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <logger name="com.viartemev.calories" level="DEBUG" additivity="false">
+        <appender-ref ref="LogzioLogbackAppender"/>
+    </logger>
+
+    <root level="INFO">
+        <!-- IMPORTANT: make sure to include this line, otherwise the appender won't be used -->
+        <appender-ref ref="LogzioLogbackAppender"/>
+    </root>
+</configuration>
